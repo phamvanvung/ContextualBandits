@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>LinUCB Simulation</title>
     <script src="lib/math.js"></script>
     <script src="lib/d3.v5.min.js"></script>
     <script src="lib/d3-random.v2.min.js"></script>
@@ -16,6 +16,7 @@
 <body>
 <b>True theta</b> (the linear coefficients link between reward and features)
 <div style="width: 400px; height: 400px;" id="theta"></div>
+<br/><br/>
 <b>Regrets</b> (comparing random policy and LinUCB with different alphas)
 <div style="width: 400px; height: 400px;" id="regrets"></div>
 <script>
@@ -28,10 +29,10 @@
     let heatMapSettings = {
         noSvg: false,
         showAxes: true,
-        paddingLeft: 40,
+        paddingLeft: 60,
         paddingRight: 50,
-        paddingTop: 50,
-        paddingBottom: 50,
+        paddingTop: 20,
+        paddingBottom: 45,
         showColorBar: true,
         xAxisLabel: {text: 'arms'},
         yAxisLabel: {text: 'features'}
@@ -69,14 +70,16 @@
     let lcSettings = {
         noSvg: false,
         showAxes: true,
-        paddingLeft: 40,
+        paddingLeft: 60,
         paddingRight: 30,
-        paddingTop: 50,
-        paddingBottom: 25,
+        paddingTop: 20,
+        paddingBottom: 45,
         legend: {
             x: 40 + 20,
-            y: 50 + 20
-        }
+            y: 20 + 20
+        },
+        xAxisLabel: {text: 'trials'},
+        yAxisLabel: {text: 'cumulative regrets'}
     };
     //Change color scheme to category 10
     lcSettings.colorScale = d3.scaleOrdinal()
