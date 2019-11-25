@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="lib/math.js"></script>
+    <script src="lib/d3.v5.min.js"></script>
+    <script src="lib/d3-random.v2.min.js"></script>
     <script src="js/charts.min.js"></script>
     <script src="build/js/contextualbandits.min.js"></script>
 
-    <script src="lib/d3-random.v2.min.js"></script>
     <script src="js/generatedata.js"></script>
     <script src="js/simulation.js"></script>
 </head>
@@ -49,35 +50,43 @@
     regrets['random'] = regretsRandom;
 
     let alphas = [0, 1.0, 2.5, 5.0, 10.0];
-    alphas.forEach(alpha=>{
+    alphas.forEach(alpha => {
         let payoffsAlpha = linUCB(alpha, X, generateReward, trueTheta);
-        regrets['alpha='+alpha] = makeRegret(payoffsAlpha, oracles);
+        regrets['alpha=' + alpha] = makeRegret(payoffsAlpha, oracles);
     });
 
     let trials = Array.from(new Array(N_TRIALS), (_, i) => i);
 
-    let lineChartData = Object.keys(regrets).map(k=>{
+    let lineChartData = Object.keys(regrets).map(k => {
         return {
             x: trials,
             y: regrets[k],
             series: k
         }
     });
+    let lcSettings = {
+        noSvg: false,
+        showAxes: true,
+        paddingLeft: 40,
+        paddingRight: 30,
+        paddingTop: 50,
+        paddingBottom: 25,
+        legend: {
+            x: 40 + 20,
+            y: 50 + 20
+        }
+    };
+    //Change color scheme to category 10
+    lcSettings.colorScale = d3.scaleOrdinal()
+        .domain(lineChartData.map(ld => ld.series))
+        .range(lineChartData.map((_, i) => {
+            return d3.schemeCategory10[i];
+        }));
 
     let lc = new LineChart(document.getElementById('regrets'),
-        lineChartData,
-        {
-            noSvg: false,
-            showAxes: true,
-            paddingLeft: 40,
-            paddingRight: 30,
-            paddingTop: 50,
-            paddingBottom: 25,
-            legend: {
-                x: 40 + 20,
-                y: 50 + 20
-            }
-        });
+        lineChartData, lcSettings);
+
+
     lc.plot();
 </script>
 </body>
