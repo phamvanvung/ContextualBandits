@@ -20,7 +20,7 @@
 <b>Regrets</b> (comparing random policy and LinUCB with different alphas)
 <div style="width: 600px; height: 400px;" id="regrets"></div>
 <script>
-    let trials = Array.from(new Array(N_TRIALS), (_, i) => i);
+
     let heatMapData = {
         x: Array.from(new Array(N_ARMS), (_, i) => i),
         y: Array.from(new Array(N_FEATURES), (_, i) => i),
@@ -39,35 +39,6 @@
     };
     let hm = new HeatMap(document.getElementById("theta"), heatMapData, heatMapSettings);
     hm.plot();
-
-
-    let oracles = X.map(trial => {
-        //Generate array of scores => then sort ascending => then take the last N_ARMS (largest)
-        return math.sum((trial.map((arm, i) => {
-            return math.dot(arm, trueTheta[i]);
-        })).sort((a, b) => a - b).slice(-N_ARMS_TO_RECOMMEND));
-    });
-
-    let payoffsRandom = X.map(trial => {
-        let totalRewards = 0;
-        for (let i = 0; i < N_ARMS_TO_RECOMMEND; i++) {
-            //Select one random arm
-            let randomArm = d3.randomInt(0, N_ARMS)();
-            //Add the score
-            totalRewards += math.dot(trial[randomArm], trueTheta[randomArm]);
-        }
-        return totalRewards;
-    });
-
-    let regretsRandom = makeRegret(payoffsRandom, oracles);
-    let regrets = {};
-    regrets['random'] = regretsRandom;
-
-    let alphas = [0, 1.0, 2.5, 5.0, 10.0];
-    alphas.forEach(alpha => {
-        let payoffsAlpha = linUCB(alpha, X, generateReward, trueTheta, N_ARMS_TO_RECOMMEND);
-        regrets['alpha=' + alpha] = makeRegret(payoffsAlpha, oracles);
-    });
 
     let lineChartData = Object.keys(regrets).map(k => {
         return {
