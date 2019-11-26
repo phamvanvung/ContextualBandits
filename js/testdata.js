@@ -33,6 +33,11 @@ d3.json("data/userstudy_record_trial.json").then(X => {
             });
             regrets['random'] = makeRegret(payoffsRandom, oracles);
             //Regret for alphas
+            let alphas = [0, 1.0, 2.5, 5.0, 10.0];
+            alphas.forEach(alpha => {
+                let payoffsAlpha = linUCBFromData(alpha, X, selectedArmIds, rewards);
+                regrets['alpha=' + alpha] = makeRegret(payoffsAlpha, oracles);
+            });
 
             //Draw regrets
             let testLineChartData = Object.keys(regrets).map(k => {
@@ -45,5 +50,4 @@ d3.json("data/userstudy_record_trial.json").then(X => {
             drawRegrets("regretsTest", testLineChartData);
         });
     });
-
 });

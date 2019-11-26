@@ -2,7 +2,7 @@ function generateSimulationData() {
     const N_TRIALS = 200;
     const N_ARMS = 36;
     const N_FEATURES = 17;
-    const BEST_ARMS = [1, 3, 5, 9];
+    const BEST_ARMS = [];
     const N_ARMS_TO_RECOMMEND = 4;
 
     // const N_TRIALS = 2000;

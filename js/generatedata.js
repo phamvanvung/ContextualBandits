@@ -94,3 +94,30 @@ function linUCB(alpha, X, generateReward, trueTheta, armsToRecommend) {
     }
     return payoffs;
 }
+
+function linUCBFromData(alpha, X, selectedArmIds, rewards) {
+    const nTrials = X.length;
+    const nArms = X[0].length;
+    const nFeatures = X[0][0].length;
+    const armsToRecommend = selectedArmIds[0].length;
+
+    //Initialize A
+    let payoffs = [];
+    let lucb = new LinUCB(alpha, nTrials, nArms, nFeatures);
+
+    for (let t = 0; t < nTrials; t++) {
+        // compute the predictions for all arms of each trial
+        let recommendedActions = lucb.recommend(X[t], armsToRecommend);
+        let r = [];
+        for (let i = 0; i < recommendedActions.length; i++) {
+            let chosenArm = recommendedActions[i];//Take one arm
+            let rw = selectedArmIds[t].indexOf(chosenArm) >= 0 ? rewards[t][selectedArmIds[t].indexOf(chosenArm)] : 0;
+            r.push(rw);
+        }
+
+        payoffs[t] = math.sum(r);
+        // update intermediate object
+        lucb.include(X[t], recommendedActions, r);
+    }
+    return payoffs;
+}
