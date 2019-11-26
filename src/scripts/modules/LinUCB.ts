@@ -73,3 +73,19 @@ export class LinUCB {
         return results;
     }
 }
+
+/**
+ *
+ * @param payoffs   {Array}: array of payoffs for every trial
+ * @param oracles   {Array}: array of optimal score for every trial
+ * @return {Array}: the cumulative sum of regrets (optimal reward - observed reward)
+ */
+export function makeRegret(payoffs, oracles) {
+    let cusum = [];
+    let cs = 0;
+    oracles.forEach((o, i) => {
+        cs += o - payoffs[i];
+        cusum.push(cs);
+    });
+    return cusum;
+}

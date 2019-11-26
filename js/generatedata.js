@@ -61,21 +61,7 @@ function generateReward(arm, context, theta, noiseSd = 0.1) {
     return signal + noise;
 }
 
-/**
- *
- * @param payoffs   {Array}: array of payoffs for every trial
- * @param oracles   {Array}: array of optimal score for every trial
- * @return {Array}: the cumulative sum of regrets (optimal reward - observed reward)
- */
-function makeRegret(payoffs, oracles) {
-    let cusum = [];
-    let cs = 0;
-    oracles.forEach((o, i) => {
-        cs += o - payoffs[i];
-        cusum.push(cs);
-    });
-    return cusum;
-}
+
 /**
  * Simulate the learning process and observe the payoffs
  * @param alpha number: this is the :math:`\alpha = \sqrt{ln(2/\sigma)/2}`

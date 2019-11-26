@@ -7,10 +7,9 @@
     <script src="lib/d3.v5.min.js"></script>
     <script src="lib/d3-random.v2.min.js"></script>
     <script src="js/charts.min.js"></script>
+    <script src="js/chartutils.js"></script>
     <script src="build/js/contextualbandits.min.js"></script>
-
     <script src="js/generatedata.js"></script>
-    <script src="js/simulation.js"></script>
 </head>
 
 <body>
@@ -18,59 +17,10 @@
 <div style="width: 600px; height: 400px;" id="theta"></div>
 <br/><br/>
 <b>Regrets</b> (comparing random policy and LinUCB with different alphas)
-<div style="width: 600px; height: 400px;" id="regrets"></div>
-<script>
-
-    let heatMapData = {
-        x: Array.from(new Array(N_ARMS), (_, i) => i),
-        y: Array.from(new Array(N_FEATURES), (_, i) => i),
-        z: trueTheta
-    };
-    let heatMapSettings = {
-        noSvg: false,
-        showAxes: true,
-        paddingLeft: 60,
-        paddingRight: 50,
-        paddingTop: 20,
-        paddingBottom: 45,
-        showColorBar: true,
-        xAxisLabel: {text: 'arms'},
-        yAxisLabel: {text: 'features'}
-    };
-    let hm = new HeatMap(document.getElementById("theta"), heatMapData, heatMapSettings);
-    hm.plot();
-
-    let lineChartData = Object.keys(regrets).map(k => {
-        return {
-            x: trials,
-            y: regrets[k],
-            series: k
-        }
-    });
-    let lcSettings = {
-        noSvg: false,
-        showAxes: true,
-        paddingLeft: 60,
-        paddingRight: 30,
-        paddingTop: 20,
-        paddingBottom: 45,
-        legend: {
-            x: 60 + 20,
-            y: 20 + 20
-        },
-        xAxisLabel: {text: 'trials'},
-        yAxisLabel: {text: 'cumulative regrets'}
-    };
-    //Change color scheme to category 10
-    lcSettings.colorScale = d3.scaleOrdinal()
-        .domain(lineChartData.map(ld => ld.series))
-        .range(lineChartData.map((_, i) => {
-            return d3.schemeCategory10[i];
-        }));
-
-    let lc = new LineChart(document.getElementById('regrets'),
-        lineChartData, lcSettings);
-    lc.plot();
-</script>
+<div style="width: 600px; height: 400px;" id="regretsSimulation"></div>
+<b>Regrets</b> (comparing random policy and LinUCB with different alphas)
+<div style="width: 600px; height: 400px;" id="regretsTest"></div>
+<!--<script src="js/simulation.js"></script>-->
+<script src="js/testdata.js"></script>
 </body>
 </html>
