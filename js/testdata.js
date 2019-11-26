@@ -1,6 +1,6 @@
-d3.json("data/userstudy_record_trial.json").then(X => {
-    d3.json("data/userstudy_record_selection.json").then(selectedArmIds => {
-        d3.json("data/userstudy_record_reward.json").then(rewards => {
+d3.json("data/2000_userstudy_record_trial_normalize.json").then(X => {
+    d3.json("data/2000_userstudy_record_selection_normalize.json").then(selectedArmIds => {
+        d3.json("data/2000_userstudy_record_reward (2).json").then(rewards => {
             let trials = X.map((_, i) => i);
             debugger
             let regrets = {};
