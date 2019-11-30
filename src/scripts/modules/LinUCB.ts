@@ -26,6 +26,56 @@ export class LinUCB {
         }
     }
 
+    public setA(A) {
+        this.A = A;
+    }
+
+    public setB(b) {
+        this.b = b;
+    }
+
+    public saveAgent() {
+        let jsonData = {};
+        jsonData['alpha'] = this.alpha;
+        jsonData['nArms'] = this.nArms;
+        jsonData['nFeatures'] = this.nFeatures;
+        jsonData['A'] = this.A;
+        jsonData['b'] = this.b;
+        return jsonData;
+    }
+
+    public static createAgentFromData(jsonData) {
+        let alpha = jsonData.alpha;
+        let nArms = jsonData.nArms;
+        let nFeatures = jsonData.nFeatures;
+        let A = jsonData.A;
+        let b = jsonData.b;
+        let agent = new LinUCB(alpha, nArms, nFeatures);
+        agent.setA(A);
+        agent.setB(b);
+        return agent;
+    }
+
+    public learnFromOfflineData(X, selectedArmIds, rewards) {
+        const payoffs = [];
+        const nTrials = X.length;
+        for (let t = 0; t < nTrials; t++) {
+            // compute the predictions for all arms of each trial
+            let armsToRecommend = selectedArmIds[t].length;
+            let recommendedActions = this.recommend(X[t], armsToRecommend);
+            let r = [];//Payoffs for the recommended arms as of our recommendation.
+            for (let i = 0; i < recommendedActions.length; i++) {
+                let chosenArm = recommendedActions[i];//Take one arm
+                let rw = selectedArmIds[t].indexOf(chosenArm) >= 0 ? rewards[t][selectedArmIds[t].indexOf(chosenArm)] : 0;
+                r.push(rw);
+            }
+            payoffs[t] = math.sum(r);
+            // update intermediate object
+            this.include(X[t], recommendedActions, r);
+        }
+        return payoffs;
+    }
+
     public include(arms, chosenArmIds, rewards) {
         let self = this;
         // update intermediate object
