@@ -76,7 +76,7 @@ function linUCB(alpha, X, generateReward, trueTheta, armsToRecommend) {
     const nFeatures = X[0][0].length;
     //Initialize A
     let payoffs = [];
-    let lucb = new LinUCB(alpha, nTrials, nArms, nFeatures);
+    let lucb = new LinUCB(alpha, nArms, nFeatures);
 
     for (let t = 0; t < nTrials; t++) {
         // compute the estimates (theta) and prediction for all arms
@@ -103,7 +103,7 @@ function linUCBFromData(alpha, X, selectedArmIds, rewards) {
 
     //Initialize A
     let payoffs = [];
-    let lucb = new LinUCB(alpha, nTrials, nArms, nFeatures);
+    let lucb = new LinUCB(alpha, nArms, nFeatures);
 
     for (let t = 0; t < nTrials; t++) {
         // compute the predictions for all arms of each trial
