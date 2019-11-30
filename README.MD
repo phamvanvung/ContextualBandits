@@ -1,6 +1,6 @@
 Usage:
 Initialization <br/>
-`let payoffs = [], lucb = new LinUCB(alpha, nTrials, nArms, nFeatures);`
+`let lucb = new LinUCB(alpha, nTrials, nArms, nFeatures);`
 <br/>
 At each trial `t` do:<br/>
     1. Get recommended arms: `let recommendedActions = lucb.recommend(armContexts, armsToRecommend);`, where `armContexts` are the array of contexts of all available arms at this time, and `armsToRecommend` is the number of arms that the user would like to pick out for recommendations.<br/>
@@ -9,4 +9,3 @@ At each trial `t` do:<br/>
     4. Continue to the next trial.
 
 <br/>Note: It's a good practice to always normalize the context data (not the reward data), to have better performance. This is to avoid one attribute dominates the others in the contribution to the learning process due to different value ranges.
-      

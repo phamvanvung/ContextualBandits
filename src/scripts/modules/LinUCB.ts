@@ -8,15 +8,13 @@ const math = create(all, config);
 
 export class LinUCB {
     private alpha;
-    private nTrials;
     private nArms;
     private nFeatures;
     private A;
     private b;
 
-    constructor(alpha, nTrials, nArms, nFeatures) {
+    constructor(alpha, nArms, nFeatures) {
         this.alpha = alpha;
-        this.nTrials = nTrials;
         this.nArms = nArms;
         this.nFeatures = nFeatures;
         //Initialization
