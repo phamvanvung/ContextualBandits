@@ -101,5 +101,5 @@ function linUCBFromData(alpha, X, selectedArmIds, rewards) {
     //Initialize A
     let lucb = new LinUCB(alpha, nArms, nFeatures);
     let payoffs = lucb.learnFromOfflineData(X, selectedArmIds, rewards);
-    return payoffs;
+    return {agent: lucb, payoffs:payoffs};
 }
