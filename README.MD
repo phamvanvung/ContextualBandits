@@ -1,5 +1,5 @@
 <h3>Test on simulated data</h3>
-[https://phamvanvung.github.io/ContextualBandits/](https://phamvanvung.github.io/ContextualBandits/)
+https://phamvanvung.github.io/ContextualBandits
 <h3>Installation</h3>
 Include the script file into html page:
 <br/>`<script src = 'js/contextualbandits.min.js'></script>`
