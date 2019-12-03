@@ -43,7 +43,9 @@ export class LinUCB {
         jsonData['b'] = this.b;
         return jsonData;
     }
-
+    public getAgentDataAsJSONString() {
+        return JSON.stringify(this.getAgentData());
+    }
     public static createAgentFromData(jsonData) {
         let alpha = jsonData.alpha;
         let nArms = jsonData.nArms;
