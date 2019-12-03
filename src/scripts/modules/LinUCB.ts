@@ -56,6 +56,14 @@ export class LinUCB {
         return agent;
     }
 
+    public static createAgentFromJSONString(jsonDataStr) {
+        let jsonData = JSON.parse(jsonDataStr);
+        jsonData.A = jsonData.A.map(d => math.matrix(d.data));
+        jsonData.b = jsonData.b.map(d => math.matrix(d.data));
+
+        return LinUCB.createAgentFromData(jsonData);
+    }
+
     public learnFromOfflineData(X, selectedArmIds, rewards) {
         const payoffs = [];
         const nTrials = X.length;

@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <style>
+        @import "js/loader/loader.css";
+    </style>
     <title>LinUCB Simulation</title>
     <script src="lib/math.js"></script>
     <script src="lib/d3.v5.min.js"></script>
@@ -13,11 +16,21 @@
 </head>
 
 <body>
+<script src="js/loader/loader.js"></script>
+<script>
+    showLoader();
+</script>
 <b>True theta</b> (the linear coefficients link between reward and features)
 <div style="width: 600px; height: 400px;" id="theta"></div>
 <br/><br/>
 <b>Regrets</b> (comparing random policy and LinUCB with different alphas)
 <div style="width: 600px; height: 400px;" id="regretsSimulation"></div>
+
+<b>True theta</b> (the linear coefficients link between reward and features)
+<div style="width: 600px; height: 400px;" id="theta2"></div>
+<br/><br/>
+<b>Regrets</b> (comparing random policy and LinUCB with different alphas)
+<div style="width: 600px; height: 400px;" id="regretsSimulation2"></div>
 <!--<b>Regrets</b> (comparing random policy and LinUCB with different alphas)-->
 <!--<div style="width: 600px; height: 400px;" id="regretsTest1"></div>-->
 <!--<b>Regrets</b> (comparing random policy and LinUCB with different alphas)-->

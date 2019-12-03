@@ -1,4 +1,4 @@
-function drawTheta(containerId, heatMapData) {
+async function drawTheta(containerId, heatMapData) {
 
     let heatMapSettings = {
         noSvg: false,
@@ -16,7 +16,7 @@ function drawTheta(containerId, heatMapData) {
 
 
 }
-function drawRegrets(containerId, lineChartData){
+async function drawRegrets(containerId, lineChartData){
     let lcSettings = {
         noSvg: false,
         showAxes: true,

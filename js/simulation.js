@@ -1,10 +1,9 @@
-function generateSimulationData() {
+async function generateSimulationData(bestArms=[]) {
     const N_TRIALS = 200;
     const N_ARMS = 36;
     const N_FEATURES = 17;
-    const BEST_ARMS = [];
     const N_ARMS_TO_RECOMMEND = 4;
-
+    const BEST_ARMS = bestArms.map(d=>d);
     // const N_TRIALS = 2000;
     // const N_ARMS = 36;
     // const N_FEATURES = 5;
@@ -56,20 +55,24 @@ function generateSimulationData() {
 
     }
 }
-
-let simulationData = generateSimulationData();
-//Plot the simulated data
-let simulatedHeatMapData = {
-    x: Array.from(new Array(simulationData.nArms), (_, i) => i),
-    y: Array.from(new Array(simulationData.nFeatures), (_, i) => i),
-    z: simulationData.trueTheta
-};
-drawTheta("theta", simulatedHeatMapData);
-let simulatedLineChartData = Object.keys(simulationData.regrets).map(k => {
-    return {
-        x: simulationData.trials,
-        y: simulationData.regrets[k],
-        series: k
-    }
-});
-drawRegrets("regretsSimulation", simulatedLineChartData);
+async function simulate(thetaContainerId, regretsContainerId, bestArms=[]){
+    let simulationData = await generateSimulationData(bestArms);
+    //Plot the simulated data
+    let simulatedHeatMapData = {
+        x: Array.from(new Array(simulationData.nArms), (_, i) => i),
+        y: Array.from(new Array(simulationData.nFeatures), (_, i) => i),
+        z: simulationData.trueTheta
+    };
+    drawTheta(thetaContainerId, simulatedHeatMapData);
+    let simulatedLineChartData = Object.keys(simulationData.regrets).map(k => {
+        return {
+            x: simulationData.trials,
+            y: simulationData.regrets[k],
+            series: k
+        }
+    });
+    drawRegrets(regretsContainerId, simulatedLineChartData);
+    hideLoader();
+}
+simulate("theta", "regretsSimulation", []);
+simulate("theta2", "regretsSimulation2", [5, 9, 15]);
