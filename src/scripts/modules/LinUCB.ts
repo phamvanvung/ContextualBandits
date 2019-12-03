@@ -34,7 +34,7 @@ export class LinUCB {
         this.b = b;
     }
 
-    public saveAgent() {
+    public getAgentData() {
         let jsonData = {};
         jsonData['alpha'] = this.alpha;
         jsonData['nArms'] = this.nArms;
