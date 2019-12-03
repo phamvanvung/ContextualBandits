@@ -1,7 +1,7 @@
-Usage:<br/>
+<h3>Installation</h3>
 Include the script file into html page:
 <br/>`<script src = 'js/contextualbandits.min.js'></script>`
-<br/><h3>Online training:</h3>
+<br/><h3>Online training</h3>
 Initialization:
 <br/>`let lucb = new LinUCB(alpha, nArms, nFeatures);` where `alpha` is a parameter (`\alpha = \sqrt{ln(2/\sigma)/2}`), `nArms` is the number of available arms per trial, `nFeatures` is the number of features per arm (features for the context).
 <br/>
